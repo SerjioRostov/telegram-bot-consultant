@@ -8,14 +8,24 @@ import os
 # Загружаем переменные окружения из .env файла
 load_dotenv()
 
-# Получаем токен Telegram-бота и API-ключ для AIML
-TELEGRAM_TOKEN = os.getenv("6467067301:AAGqAWQzY53waAIZvPRjTgGMnO8mIFP1pJE")
-AIML_API_KEY = os.getenv("d1efd27e249441f58594f024bb410532")
-AIML_API_URL = os.getenv("URL https://api.aimlapi.com/v1")
+# Получаем токены и URL
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+AIML_API_KEY = os.getenv("AIML_API_KEY")
+AIML_API_URL = os.getenv("AIML_API_URL")
+
+# Проверяем наличие необходимых переменных
+if not TELEGRAM_TOKEN:
+    raise ValueError("TELEGRAM_TOKEN не найден. Проверьте файл .env или переменные окружения.")
+if not AIML_API_KEY:
+    raise ValueError("AIML_API_KEY не найден. Проверьте файл .env или переменные окружения.")
+if not AIML_API_URL:
+    raise ValueError("AIML_API_URL не найден. Проверьте файл .env или переменные окружения.")
 
 # Настройка логирования
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
 logger = logging.getLogger(__name__)
 
 def get_aiml_response(query: str) -> str:
